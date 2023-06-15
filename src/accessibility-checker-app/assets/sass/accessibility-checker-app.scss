@@ -1,6 +1,13 @@
-@import "./../../globals/sass/variables";
-@import "./../../globals/sass/helpers";
+@import "./../../../globals/sass/variables";
+@import "./../../../globals/sass/helpers";
 
+.edac-element-selected{
+    outline: dashed 4px transparent !important;
+    outline-offset: 5px !important;
+    outline-color: magenta !important;
+}
+
+/*
 body.edac-app-disable-styles {
     padding: .5rem (46px + 46px ) !important;
     #wpadminbar { display: none !important;}
@@ -69,16 +76,20 @@ body.edac-app-disable-styles {
             left: 15px;
         }
         &-toggle{
+            all: revert;
             width: 50px;
             height: 50px;
             display: block;
             background: transparent url("../images/edac-emblem.png") center center no-repeat;
             background-size: contain;
+            border: none;
             box-shadow: 0 0 5px rgba($color-black,.5);
             border-radius: 50%;
             position: relative;
             float: right;
-            &:hover {
+            &:hover, &:focus{
+                outline: solid 2px black; 
+                outline-offset: 2px;
                 cursor: pointer;
             }
         }
@@ -179,6 +190,7 @@ body.edac-app-disable-styles {
                     cursor: pointer;
                     color: $color-blue-dark;
                     background-color: $color-white;
+                    outline: solid 1px black; 
                 }
             }
         }
@@ -217,6 +229,7 @@ body.edac-app-disable-styles {
                     cursor: pointer;
                     color: $color-blue-dark;
                     background-color: $color-white;
+                    outline: solid 1px black; 
                 }
             }
             &-summary{
@@ -248,3 +261,6 @@ body.edac-app-disable-styles {
         }
     }
 }
+
+
+*/

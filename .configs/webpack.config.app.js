@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 //Thanks to: https://taylor.callsen.me/using-webpack-5-and-sass-with-wordpress/
 
@@ -9,13 +10,17 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 // clean out build dir in-between builds
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+new webpack.DefinePlugin({
+  PRODUCTION: JSON.stringify(false),
+ });
+ 
 module.exports = {
-  mode: "none", //development | production
+  mode: "development", // | production
   watch: true,
   entry: {
     'main': [
       './src/accessibility-checker-app/index.js',
-      './src/accessibility-checker-app/sass/accessibility-checker.scss',
+      //'./src/accessibility-checker-app/sass/accessibility-checker.scss',
       
     ]
   },
@@ -26,6 +31,12 @@ module.exports = {
          test: /\.(js|jsx)$/,
          exclude: /node_modules/,
          use: ['babel-loader']
+      },
+      {
+        //https://blog.logrocket.com/using-webpack-typescript/#webpack-loaders
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: ['ts-loader']
       },
       {
         test: /\.(s(a|c)ss)$/,
@@ -39,7 +50,10 @@ module.exports = {
           filename: './img/[name][ext]',
         }
       },
-    ]
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   plugins: [
     // clear out build directories on each build

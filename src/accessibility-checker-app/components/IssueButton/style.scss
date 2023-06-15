@@ -1,0 +1,33 @@
+@import "./../../assets/sass/accessibility-checker-app.scss";
+   
+.edac-issue-button {
+
+
+        width: 46px;
+        height: 46px;
+        font-size: 0;
+        border-radius: 50%;
+      
+        background: transparent url("./../../assets/images/highlight-icon-error.svg") center center no-repeat;
+        background-size: 46px 46px;
+    
+        &-error, &serious{
+            background: transparent url("./../../assets/images/highlight-icon-error.svg") center center no-repeat;
+            background-size: 46px 46px;
+        }
+        &-warning{
+            background: transparent url("./../../assets/images/highlight-icon-warning.svg") center center no-repeat !important;
+        }
+        &-ignored{
+            background: transparent url("./../../assets/images/highlight-icon-ignored.svg") center center no-repeat !important;
+        }
+        &:hover{
+            .edac-highlight-btn{
+                display: block;
+            }
+        }
+        &:hover, &:focus {
+            outline: solid 5px rgba(0,208,255,.75);
+        }
+
+}

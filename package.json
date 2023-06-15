@@ -4,32 +4,66 @@
   "description": "Audit and check your website for accessibility before you hit publish. In-post accessibility scanner and guidance.",
   "author": "Equalize Digital",
   "license": "GPL-2.0+",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "build:app": "npx webpack --config .configs/webpack.config.app.js",
+    "TODO:build:rules": "mkdir -p ./packages && cp -r node_modules/@microsoft/applicationinsights-web ./packages/ && cp ./.configs/webpack.config.msrules.js ./packages/applicationinsights-web/webpack.config.js && cd ./packages/applicationinsights-web && npm install && npx webpack --config-name msrules",
     "TODO:lint:app": "wp-scripts lint-js ./src",
     "dist": "composer install && composer dump-autoload --no-dev && wp-scripts plugin-zip && mv accessibility-checker.zip ./dist"
   },
-  "files":[
-    "LICENSE.txt","README.txt","accessibility-checker.php","uninstall.php",
-    "assets","build","includes","partials","vendor"
+  "files": [
+    "LICENSE.txt",
+    "README.txt",
+    "accessibility-checker.php",
+    "uninstall.php",
+    "assets",
+    "build",
+    "includes",
+    "partials",
+    "vendor"
   ],
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/preset-env": "^7.22.4",
     "@babel/preset-react": "^7.22.3",
+    "@babel/preset-typescript": "^7.21.5",
     "@floating-ui/dom": "^1.2.9",
     "@wordpress/scripts": "^26.5.0",
+    "axe-core": "^4.7.2",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.0",
+    "dom": "^0.0.3",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "mini-css-extract-plugin": "^2.7.6",
+    "ms-accessibility-insights-web": "microsoft/accessibility-insights-web#main",
     "node-sass": "^7.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5",
     "sass-loader": "^13.3.1",
     "tabbable": "^6.1.2",
-    "unique-selector": "^0.5.0",
+    "ts-loader": "^9.4.3",
     "webpack": "^5.84.1",
     "webpack-cli": "^5.1.1"
+  },
+  "dependencies": {
+    "@floating-ui/react": "^0.24.3",
+    "@floating-ui/react-dom": "^2.0.1",
+    "i18next-browser-languagedetector": "^7.0.2",
+    "md5": "^2.3.0",
+    "react-focus-on": "^3.8.1",
+    "react-i18next": "^12.3.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:react-hooks/recommended"
+    ]
+  },
+  "imports": {
+    "#scanner": {
+      "default": "./src/accessibility-checker-app/scanner"
+    }
   }
 }

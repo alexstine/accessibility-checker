@@ -1,0 +1,26 @@
+@import "./../../assets/sass/accessibility-checker-app.scss";
+   
+    .edac-fab {
+   
+        width: 50px;
+        height: 50px;
+        display: block;
+        background: transparent url("../../assets/images/edac-emblem.png") center center no-repeat;
+        background-size: contain;
+        border: none;
+        box-shadow: 0 0 5px rgba($color-black,.5);
+        border-radius: 50%;
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+     
+        &:hover, &:focus{
+            outline: solid 2px black; 
+            outline-offset: 2px;
+            cursor: pointer;
+        }
+
+    
+    }
+
+  

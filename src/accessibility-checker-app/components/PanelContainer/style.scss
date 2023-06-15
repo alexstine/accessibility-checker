@@ -1,0 +1,59 @@
+@import "./../../assets/sass/accessibility-checker-app.scss";
+
+    .edac-app {
+
+    
+        .edac-panel-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            max-height: calc(100% - 32px - 10px); //wpadminbar - (bottom x 2) 
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            z-index: 999 !important;
+            border: solid 1px transparent; 
+        
+    
+            &.controls-visible { 
+                width: 400px;
+                max-width: 400px;
+        
+                &:hover, &:focus{
+                    outline: 0;
+                }
+            }
+
+            &.react-draggable-enabled,&.react-draggable-dragging {
+                border: dashed 1px black; 
+                cursor: grab !important;
+            }
+        
+            &.react-draggable-enabled *,&.react-draggable-dragging * {
+                cursor: grab;
+            }
+            
+            .edac-panel-container-drag-handle {
+                height: 25px;
+                
+                &:hover, &:focus{
+                    background-color: $color-gray-light;
+                    
+                    cursor: grab;
+                }
+            }
+        
+            .edac-disabled {
+                pointer-events: none;
+                opacity: 0.85
+            }
+        
+
+    
+        }
+    
+    
+   
+    } 
+
+  

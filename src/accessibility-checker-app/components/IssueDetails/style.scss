@@ -1,0 +1,101 @@
+@import "./../../assets/sass/accessibility-checker-app.scss";
+
+.edac-panel-issue-details {
+    max-height: calc( 100vh - 32px - 10px - 225px); // wpadminbar - (bottom x 2) - drag_handle - controls;
+    display: block;
+    border: solid 1px $color-gray-light;
+    background-color: $color-white;
+    margin-bottom: 15px;
+    padding: 15px;
+    color: $color-white;
+    background-color: $color-blue-dark;
+    font-size: 14px;
+    line-height: 22px;
+    font-family: sans-serif;
+    text-align: left;
+    overflow-y: scroll;
+    box-shadow: 0px 0px 5px rgba($color-black, .25);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    &-title{
+        font-size: 16px;
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    &-type{
+        font-size: 12px;
+        padding: 5px 7px;
+        border-radius: 4px;
+        font-size: 12px;
+        line-height: 12px;
+        margin-left: 10px;
+        display: inline-block;
+        text-transform: capitalize;
+        position: relative;
+        top: -2px;
+        &-error{
+            color: $color-white;
+            background-color: $color-red;
+        }
+        &-warning{
+            color: $color-blue-dark;
+            background-color: $color-yellow;
+        }
+        &-ignored{
+            color: $color-white;
+            background-color: $color-blue;
+        }
+    }
+    &-status{
+        color: $color-white;
+        display: block;
+        background-color: $color-red;
+        padding: 10px 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    &-reference,
+    &-code-button{
+        all: unset;
+        color: $color-blue-dark;
+        background-color: $color-yellow;
+        padding: 4px 10px;
+        display: inline-block;
+        margin-top: 10px;
+        margin-right: 10px;
+        &:hover, &:focus, &[aria-expanded="true"]{
+            color: $color-blue-dark;
+            background-color: $color-white;
+            cursor: pointer;
+        }
+    }
+    &-reference{
+        text-decoration: none;
+    }
+    &-code{
+        color: $color-black;
+        display: block;
+        background-color: $color-white;
+        padding: 10px 15px;
+           margin-top: 10px;
+    }
+    &-close{
+        width: 25px;
+        height: 25px;
+        color: $color-blue-dark;
+        background-color: $color-yellow;
+        font-size: 18px;
+        line-height: 25px;
+        position: absolute;
+        top: 25px;
+        right: 1px;
+        text-align: center;
+        &:hover, &:focus{
+            cursor: pointer;
+            color: $color-blue-dark;
+            background-color: $color-white;
+            outline: solid 1px black; /* ? rgba(0,208,255,.75); */
+        }
+    }
+}
