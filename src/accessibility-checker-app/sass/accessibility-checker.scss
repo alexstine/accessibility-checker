@@ -23,6 +23,15 @@ body.edac-app-disable-styles {
         outline: dashed 4px transparent !important;
         outline-offset: 5px !important;
         outline-color: magenta !important;
+
+        &-min-width {
+            min-width: 25px !important;
+            display: inline-block !important;    
+        }
+        &-min-height {
+            min-height: 16px !important;
+        }
+
     }
 
     &-btn{
@@ -49,6 +58,7 @@ body.edac-app-disable-styles {
         &-selected, &:hover, &:focus {
            outline: solid 5px rgba(0,208,255,.75) !important;
         }
+
     }
     &-panel{
         
