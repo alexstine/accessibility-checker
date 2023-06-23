@@ -1614,7 +1614,8 @@ class AccessibilityCheckerHighlight {
     // Compare the outer HTML of the parsed element with all elements on the page
     const allElements = document.body.querySelectorAll('*');
     for (const element of allElements) {
-      if (element.outerHTML === firstParsedElement.outerHTML) {
+      //strip non alphanumeric chars for the compare
+      if (element.outerHTML.replace(/\W/g, '') === firstParsedElement.outerHTML.replace(/\W/g, '')) {
         return element;
       }
     }
@@ -1901,7 +1902,11 @@ class AccessibilityCheckerHighlight {
 
       //Find the elements matching the issue's html
       json.forEach(function (value, index) {
+        console.log(value);
+        console.log(value.object);
         const element = this.findElement(value, index);
+        console.log(element);
+        console.log('-----');
         if (element !== null) {
           const tooltip = this.addTooltip(element, value, index);
           this.issues[index].tooltip = tooltip.tooltip;
