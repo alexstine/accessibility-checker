@@ -184,6 +184,10 @@ class AccessibilityCheckerHighlight {
 		for (const element of allElements) {
 
 			if (element.outerHTML === firstParsedElement.outerHTML) {
+
+				const tooltip = this.addTooltip(element, value, index);
+				this.tooltips.push(tooltip);
+
 				return element;
 			}
 		}
@@ -246,6 +250,12 @@ class AccessibilityCheckerHighlight {
 			//find the associated element 
 			const id = item.tooltip.dataset.id;
 
+			//remove the data-element-id added we created the tooltip/button
+			const element = document.querySelector(`[data-element-id="${id}"]`);
+			if (element) {
+				element.removeAttribute('data-element-id');
+			}
+
 			//remove click listener
 			item.tooltip.removeEventListener('click', item.listeners.onClick);
 
@@ -268,8 +278,6 @@ class AccessibilityCheckerHighlight {
 	 * @return {Object} - information about the tooltip
 	 */
 	addTooltip(element, value, index) {
-
-	
 		// Create the tooltip.
 		let tooltip = document.createElement('button');
 		tooltip.classList = 'edac-highlight-btn edac-highlight-btn-' + value.rule_type;
@@ -279,8 +287,11 @@ class AccessibilityCheckerHighlight {
 
 		//add data-id to the tooltip/button so we can find it later.
 		tooltip.dataset.id = value.id;
-		
-		
+
+		//add data-element-id to the element so we can find it later.
+		element.dataset.elementId = value.id;
+
+
 		const onClick = (e) => {
 			const id = e.currentTarget.dataset.id;
 			this.showIssue(id);
@@ -425,31 +436,22 @@ class AccessibilityCheckerHighlight {
 			return;
 		}
 
-		const issue = this.issues.find(issue => issue.id == id);
 		this.currentButtonIndex = this.issues.findIndex(issue => issue.id == id);
 
-		const tooltip = issue.tooltip;
-		const element = issue.element;
-		
-		if (tooltip && element) {
+		const issueElement = document.querySelector(`[data-id="${id}"]`);
+		const element = document.querySelector(`[data-element-id="${id}"]`);
 
-			tooltip.classList.add('edac-highlight-btn-selected');
+		if (issueElement && element) {
+
+			issueElement.classList.add('edac-highlight-btn-selected');
 			element.classList.add('edac-highlight-element-selected');
-			
-			if(element.offsetWidth < 20){
-				element.classList.add('edac-highlight-element-selected-min-width');
-			}
-
-			if(element.offsetHeight < 5){
-				element.classList.add('edac-highlight-element-selected-min-height');
-			}
 
 			element.scrollIntoView({ block: 'center' });
 
-			if (isFocusable(tooltip)) {
+			if (isFocusable(issueElement)) {
 				//issueElement.focus();
 
-				if (!this.checkVisibility(tooltip) || !this.checkVisibility(element)) {
+				if (!this.checkVisibility(issueElement) || !this.checkVisibility(element)) {
 					this.currentIssueStatus = 'The element is not visible. Try disabling styles.';
 					//TODO: console.log(`Element with id ${id} is not visible!`);
 				} else {
@@ -505,18 +507,16 @@ class AccessibilityCheckerHighlight {
 		this.highlightAjax().then(
 			(json) => {
 
+				//console.log(json);
+
 				this.issues = json;
 
-			
-				//Find the elements matching the issue's html
 				json.forEach(function (value, index) {
-					const element = this.findElement(value, index);
-					if(element !== null ){
-						const tooltip = this.addTooltip(element, value, index);
-						this.issues[index].tooltip = tooltip.tooltip;
-						this.issues[index].element = element;		
-					}
+
+					const matchedElement = this.findElement(value, index);
+
 				}.bind(this));
+
 
 				this.showIssueCount();
 
@@ -561,11 +561,7 @@ class AccessibilityCheckerHighlight {
 		//remove selected class from previously selected elements
 		const selectedElements = document.querySelectorAll('.edac-highlight-element-selected');
 		selectedElements.forEach((selectedElement) => {
-			selectedElement.classList.remove(
-				'edac-highlight-element-selected',
-				'edac-highlight-element-selected-min-width',
-				'edac-highlight-element-selected-min-height'
-			);
+			selectedElement.classList.remove('edac-highlight-element-selected');
 		});
 	}
 
