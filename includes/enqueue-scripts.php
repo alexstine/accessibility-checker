@@ -43,6 +43,8 @@ function edac_admin_enqueue_scripts() {
 			)
 		);
 
+
+		edac_enqueue_scripts( 'autoscan' );
 	}
 
 }
@@ -57,13 +59,13 @@ function edac_enqueue_styles() {
 /**
  * Enqueue Scripts
  */
-function edac_enqueue_scripts() {
+function edac_enqueue_scripts( $mode = 'ui' ) {
 	
 	global $post;
 
 	$post_id = is_object( $post ) ? $post->ID : null;
 
-	if( $post_id && current_user_can( 'edit_post', $post_id ) ) {
+	if ( $post_id && current_user_can( 'edit_post', $post_id ) ) {
 
 		wp_enqueue_script( 'edac-app', plugin_dir_url( __DIR__ ) . 'build/accessibility-checker-app/main.bundle.js', false, EDAC_VERSION, false );
 
@@ -84,9 +86,16 @@ function edac_enqueue_scripts() {
 				'ajaxurl'  => admin_url( 'admin-ajax.php' ),
 				'loggedIn' => is_user_logged_in(),
 				'active'   => $active,
+				'mode'       => $mode,
+				'autoscanUrl' => get_preview_post_link(
+					$post_id, 
+					array(
+						'edac-action' => 'autoscan',
+					)
+				),
 			)
 		);
 
-	}		
+	}       
 
 }
