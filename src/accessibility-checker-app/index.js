@@ -44,10 +44,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			if(edacAction === 'autoscan'){
 				// This page preview is being loaded from within the editor's iframe because we want to run an autoscan
 		
-				scan().then((issues) => {
+				scan().then((results) => {
 			
-				//TODO: return results to the editor via a message
-				console.log(issues);
+				//TODO: pull results into enque, then look for changes and only post those
+				//post results to DB
+				console.log(results.violations);
 
 			}).catch((err) => {
 				//TODO:

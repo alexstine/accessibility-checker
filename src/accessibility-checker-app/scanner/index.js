@@ -44,12 +44,15 @@ export async function scan(
 
 			
 			let violations = [];
+
 			rules.forEach(item => {
 
+				//Build an array of the dom selectors and ruleIDs for violations/failed tests
 				item.violations.forEach( violation => {
 					if(violation.result === 'failed'){
 						violations.push({
 							selector:violation.node.selector,
+							html: document.querySelector(violation.node.selector).outerHTML,
 							ruleId: item.id
 						});
 					}
@@ -57,6 +60,7 @@ export async function scan(
 
 			});
 
+			//Sort the violations by order they appear in the document
 			violations.sort(function(a,b) {
 				a = document.querySelector(a.selector);
 				b = document.querySelector(b.selector);
